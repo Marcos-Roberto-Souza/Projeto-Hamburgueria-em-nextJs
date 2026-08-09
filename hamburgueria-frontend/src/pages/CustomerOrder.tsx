@@ -14,7 +14,7 @@ type CartItem = {
 
 export function CustomerOrder() {
     const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [ , setLoading] = useState(false);
     const [cart, setCart] = useState<CartItem[]>([]);
 
 

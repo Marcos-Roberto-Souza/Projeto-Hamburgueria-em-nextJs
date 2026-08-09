@@ -29,7 +29,7 @@ const pulseStyle = `
 export function KDS() {
     const [orders, setOrders] = useState<Order[]>([]);
     const [highlightedOrders, setHighlightedOrders] = useState<number[]>([]);
-    const [now, setNow] = useState(new Date());
+    const [now,setNow] = useState(new Date());
 
     async function loadOrders() {
         const response = await api.get('/orders/kds');
@@ -53,21 +53,7 @@ export function KDS() {
         await api.patch(`/orders/${id}/finish`); // Atualiza a lista após mudar o status
         loadOrders();
     }
-
-    function getOrderPriority(order: Order) {
-        const minutes = getElapsedMinutes(order.created_at);
-
-        // Prioridade base: tempo de espera
-        let priority = minutes;
-
-        // EM_PREPARO ganha prioridade extra
-        if (order.status.trim() === 'EM_PREPARO') {
-            priority += 1000;
-        }
-
-        return priority;
-    }
-
+    
     useEffect(() => {
         // Carrega imediatamente ao abrir a tela
         loadOrders();
@@ -83,20 +69,6 @@ export function KDS() {
             setNow(new Date()), 60000);// 1 minuto
         return () => clearInterval(timer);// clear
     }, []);
-
-    function getStatusStyle(status: string) {// Normaliza o status para evitar problemas com espaços
-        const normalized = status.trim();
-
-        if (normalized === 'CRIADO') {
-            return { borderLeft: '8px solid #facc15', background: '#fefce8' };
-        }
-
-        if (normalized === 'EM_PREPARO') {
-            return { borderLeft: '8px solid #3b82f6', background: '#eff6ff' };
-        }
-
-        return {};
-    }
 
     function getElapsedMinutes(dateString: string) {// Calcula o tempo decorrido em minutos desde a criação do pedido
         const created = new Date(dateString);
@@ -274,6 +246,7 @@ export function KDS() {
                     </ul>
                 </div >
             ))}
+            <p>Última atualização: {now.toLocaleTimeString()}</p>
         </div >
     );
 }
