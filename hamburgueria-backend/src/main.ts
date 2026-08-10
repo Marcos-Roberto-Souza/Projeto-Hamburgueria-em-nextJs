@@ -9,9 +9,10 @@ async function bootstrap() {
   app.enableCors({
     origin: [
     'http://localhost:5173',
-    'https://projeto-hamburgueria-em-next-js.vercel.app'
+    'https://projeto-hamburgueria-em-next-js.vercel.app',
+    'https://projeto-hamburgueria-em-next-js-git-main-marcos-tec2026.vercel.app'
   ],
-    credentials: true, 
+    credentials: true,
     methods: [ 'GET','POST','PUT','DELETE', 'PATCH', 'OPTIONS'],
   });
 
