@@ -8,9 +8,6 @@ import { OrdersModule } from './orders/orders.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
-console.log(process.env.DB_USERNAME);
-console.log(process.env.DB_HOST);
-
 @Module({
   imports: [
     ConfigModule.forRoot({
