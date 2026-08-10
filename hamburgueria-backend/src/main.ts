@@ -7,11 +7,12 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: [
-    'http://localhost:5173',
-    'https://projeto-hamburgueria-em-next-js.vercel.app',
-    'https://projeto-hamburgueria-em-next-js-git-main-marcos-tec2026.vercel.app'
-  ],
+    origin: true,
+  //[
+    //'http://localhost:5173',
+    //'https://projeto-hamburgueria-em-next-js.vercel.app',
+    //'https://projeto-hamburgueria-em-next-js-git-main-marcos-tec2026.vercel.app'
+  //],
     credentials: true,
     methods: [ 'GET','POST','PUT','DELETE', 'PATCH', 'OPTIONS'],
   });
