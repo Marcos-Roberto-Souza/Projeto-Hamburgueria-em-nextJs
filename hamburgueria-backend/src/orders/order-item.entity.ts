@@ -3,6 +3,7 @@ import {
     PrimaryGeneratedColumn,
     ManyToOne,
     Column,
+    JoinColumn,
 } from 'typeorm';
 import { Order } from './order.entity';
 import { Product } from '../products/product.entity';
@@ -13,9 +14,11 @@ export class OrderItem {
     id: number;
 
     @ManyToOne(() => Order, order => order.items, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'order_id' })
     order: Order;
 
     @ManyToOne(() => Product)
+    @JoinColumn({ name: 'product_id' })
     product: Product;
 
     @Column()
