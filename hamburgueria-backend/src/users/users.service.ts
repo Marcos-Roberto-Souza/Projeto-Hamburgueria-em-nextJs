@@ -3,17 +3,15 @@ import {
     NotFoundException, 
     ConflictException 
 } from '@nestjs/common';
-import { 
-    InjectRepository, 
-    Repository 
-} from '@nestjs/typeorm';
-
+import { InjectRepository } from '@nestjs/typeorm';
+import {Repository} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
-import { 
-    CreateUserDto, 
-    UpdateUserDto 
-} from './dto/create-user.dto';
+import {CreateUserDto} from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+
+import { UserRole } from './user-role.enum';
+
 @Injectable()
 export class UsersService {
     constructor(
