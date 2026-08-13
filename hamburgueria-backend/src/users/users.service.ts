@@ -6,6 +6,8 @@ import * as bcrypt from 'bcrypt';
 import { User } from './user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ConflictException } from '@nestjs/common';
+
 
 @Injectable()
 export class UsersService {
@@ -21,6 +23,18 @@ export class UsersService {
             ...createUserDto,
             password: hashedPassword,
         });
+
+        const existingUser = await this.userRepositore.findOne({
+            where:{
+                email: createUserDto.email,
+            },
+        });
+
+        if (existingUser){
+            throw new ConflictException(
+                'Já existe um usuário com este email',
+            );
+        }
 
         return this.usersRepository.save(user);
     }

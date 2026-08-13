@@ -27,6 +27,8 @@ export function AdminProducts() {
         product.name.toLowerCase().includes(search.toLowerCase())
     );
 
+    const API_URL = "https://projeto-hamburgueria-em-nextjs-production.up.railway.app";
+
 
     useEffect(() => {
         loadProducts();
@@ -181,7 +183,7 @@ export function AdminProducts() {
                     <div style={{ display: 'flex', gap: 10 }}>
                         {product.image_url && (
                             <img
-                                src={`http://localhost:3000${product.image_url}`}
+                                src={`${API_URL}${product.image_url}`}
                                 alt={product.name}
                                 width={80}
                             />
