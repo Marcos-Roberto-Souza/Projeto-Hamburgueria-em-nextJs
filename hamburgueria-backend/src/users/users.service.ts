@@ -1,14 +1,19 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { 
+    Injectable, 
+    NotFoundException, 
+    ConflictException 
+} from '@nestjs/common';
+import { 
+    InjectRepository, 
+    Repository 
+} from '@nestjs/typeorm';
+
 import * as bcrypt from 'bcrypt';
-
 import { User } from './user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ConflictException } from '@nestjs/common';
-
-
+import { 
+    CreateUserDto, 
+    UpdateUserDto 
+} from './dto/create-user.dto';
 @Injectable()
 export class UsersService {
     constructor(
@@ -17,14 +22,8 @@ export class UsersService {
     ) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
-        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-
-        const user = this.usersRepository.create({
-            ...createUserDto,
-            password: hashedPassword,
-        });
-
-        const existingUser = await this.userRepositore.findOne({
+        
+        const existingUser = await this.usersRepository.findOne({
             where:{
                 email: createUserDto.email,
             },
@@ -35,6 +34,16 @@ export class UsersService {
                 'Já existe um usuário com este email',
             );
         }
+
+        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
+        const user = this.usersRepository.create({
+            name: createUserDto.name,
+            email: createUserDto.email,
+            password: hashedPassword,
+            role: UserRole.CUSTOMER,
+    
+        });
 
         return this.usersRepository.save(user);
     }
