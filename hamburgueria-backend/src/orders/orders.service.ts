@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Order } from './order.entity';
 import { OrderItem } from './order-item.entity';
 import { Product } from '../products/product.entity';
-import { CreateOrderDto } from '../product-options/dto/create-order.dto';
+import { CreateOrderDto } from './dto/create-order.dto';
 import { OrderHistory } from './order-history.entity';
 @Injectable()
 export class OrdersService {
@@ -64,7 +64,10 @@ export class OrdersService {
         return this.ordersRepository.save(order);
     }
 
+    console.log('USER ID: ', dto.userId);
+
     async createOrder(dto: CreateOrderDto) {
+        console.log('DTO RECEBIDO: ', dto);
         // 1️⃣ Criar pedido com status CRIADO
         const order = this.ordersRepository.create({
             status: 'CRIADO',
