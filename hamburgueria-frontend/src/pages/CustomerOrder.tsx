@@ -79,6 +79,7 @@ export function CustomerOrder() {
         try {
             setLoading(true);
             await api.post('/orders', {
+                userId: 1,
                 items: cart.map(item => ({
                     productId: item.product.id,
                     quantity: item.quantity,
