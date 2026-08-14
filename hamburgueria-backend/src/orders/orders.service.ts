@@ -64,9 +64,10 @@ export class OrdersService {
         return this.ordersRepository.save(order);
     }
 
-    console.log('USER ID: ', dto.userId);
+    
 
     async createOrder(dto: CreateOrderDto) {
+        console.log('=== INICIO CREATE ORDER ===');
         console.log('DTO RECEBIDO: ', dto);
         // 1️⃣ Criar pedido com status CRIADO
         const order = this.ordersRepository.create({
@@ -74,17 +75,24 @@ export class OrdersService {
             total: 0,
             user: { id: dto.userId }, // Apenas para criar a relação, o ID é o suficiente
         });
+        console.log('Pedido criado');
 
         await this.ordersRepository.save(order);
+
+        console.log('Pedido Salvo');
 
         let total = 0;
 
         // 2️⃣ Criar itens do pedido
         for (const item of dto.items) {
+
+            console.log('Item: ', item);
             const product = await this.productsRepository.findOneBy({
                 id: item.productId,
                 active: true,
             });
+
+            console.log('Produto encontrado: ', product);
 
             if (!product) {
                 throw new Error(`Produto ${item.productId} não encontrado`);
@@ -92,6 +100,10 @@ export class OrdersService {
 
             const itemTotal = product.base_price * item.quantity;
             total += itemTotal;
+
+            console.log('Total Calculado: ', total);
+
+            return order;
 
             const orderItem = this.orderItemsRepository.create({
                 order,
