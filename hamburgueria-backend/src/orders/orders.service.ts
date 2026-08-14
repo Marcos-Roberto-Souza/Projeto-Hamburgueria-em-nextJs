@@ -98,6 +98,8 @@ export class OrdersService {
                 throw new Error(`Produto ${item.productId} não encontrado`);
             }
 
+            const validProduct = product;
+
             const itemTotal = product.base_price * item.quantity;
             total += itemTotal;
 
@@ -107,9 +109,9 @@ export class OrdersService {
 
             const orderItem = this.orderItemsRepository.create({
                 order,
-                product,
+                product: validProduct,
                 quantity: item.quantity,
-                unit_price: product.base_price,
+                unit_price: validProduct.base_price,
             });
 
             await this.orderItemsRepository.save(orderItem);
