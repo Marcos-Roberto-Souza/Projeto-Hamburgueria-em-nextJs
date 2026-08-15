@@ -89,7 +89,6 @@ export class OrdersService {
             console.log('Item: ', item);
             const product = await this.productsRepository.findOneBy({
                 id: item.productId,
-                active: true,
             });
 
             console.log('Produto encontrado: ', product);
@@ -104,8 +103,6 @@ export class OrdersService {
             total += itemTotal;
 
             console.log('Total Calculado: ', total);
-
-            return order;
 
             const orderItem = this.orderItemsRepository.create({
                 order,
