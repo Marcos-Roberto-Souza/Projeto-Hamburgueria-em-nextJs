@@ -6,7 +6,7 @@ import {
 
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
-import { UseGuards, Req, Get } from '@enstjs/common';
+import { UseGuards, Req, Get } from '@nestjs/common';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')

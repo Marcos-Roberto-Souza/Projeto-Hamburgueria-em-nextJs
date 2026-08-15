@@ -29,13 +29,13 @@ export class AuthService {
         'Email ou senha inválidos',
       );
     }
-
-    console.log('PASSWORD MATCH: ', passwordMatch);
-
+    
     const passwordMatch = await bcrypt.compare(
       dto.password,
       user.password,
     );
+
+    console.log('PASSWORD MATCH: ', passwordMatch);
 
     if (!passwordMatch) {
       throw new UnauthorizedException(
