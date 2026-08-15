@@ -17,15 +17,20 @@ export class AuthService {
   ) {}
 
   async login(dto: LoginDto) {
+    console.log('DTO: ', dto);
     const user = await this.usersService.findByEmail(
       dto.email,
     );
+
+    console.log("USER: ", user);
 
     if (!user) {
       throw new UnauthorizedException(
         'Email ou senha inválidos',
       );
     }
+
+    console.log('PASSWORD MATCH: ', passwordMatch);
 
     const passwordMatch = await bcrypt.compare(
       dto.password,
@@ -43,6 +48,8 @@ export class AuthService {
       email: user.email,
       role: user.role,
     };
+
+    console.log('PAYLOAD: ', payload);
 
     return {
       access_token: this.jwtService.sign(payload),

@@ -6,6 +6,8 @@ import {
 
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
+import { UseGuards, Req, Get } from '@enstjs/common';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -20,5 +22,11 @@ export class AuthController {
     console.log('DTO LOGIN: ', dto);
     
     return this.authService.login(dto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Req() req){
+    return req.user;
   }
 }
