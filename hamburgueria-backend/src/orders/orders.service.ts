@@ -64,7 +64,7 @@ export class OrdersService {
         return this.ordersRepository.save(order);
     }
 
-    
+
 
     async createOrder(dto: CreateOrderDto) {
         console.log('=== INICIO CREATE ORDER ===');
@@ -126,13 +126,24 @@ export class OrdersService {
     }
 
     async getTodayHistory() {
+        const start = new Date();
+        start.setHours(0, 0, 0, 0);
+
+        const end = new Date();
+        end.setHours(23, 59, 59, 999);
+
         return this.orderHistoryRepository
             .createQueryBuilder('h')
-            .where('DATE(h.closed_at) = CURDATE()')
+            .where(
+                'h.closed_at BETWEEN :start AND :end',
+                {
+                    start,
+                    end,
+                },
+            )
             .orderBy('h.closed_at', 'DESC')
             .getMany();
     }
-
     async getTodayMetrics() {
         const history = await this.getTodayHistory();
 
