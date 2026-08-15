@@ -7,6 +7,7 @@ import { ProductOptionsModule } from './product-options/product-options.module';
 import { OrdersModule } from './orders/orders.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { join } from 'path';
       autoLoadEntities: true,
       synchronize: false,
     }),
+    AuthModule,
     UsersModule,
     ProductsModule,
     ProductOptionsModule,
