@@ -11,6 +11,8 @@ export function Layout() {
                     background: '#111827',
                 }}
             >
+                <Link to="/customer-order" style={linkStyle}> 🔒 Login </Link>
+                
                 <Link to="/" style={linkStyle}> 🍳 KDS </Link>
 
                 <Link to="/dashboard" style={linkStyle}> 📊 Dashboard </Link>
