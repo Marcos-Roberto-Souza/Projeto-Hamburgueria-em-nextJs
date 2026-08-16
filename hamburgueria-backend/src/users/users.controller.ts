@@ -6,7 +6,7 @@ import {
     Delete, 
     Param, 
     Body,
-    UseGurads, 
+    UseGuards, 
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -14,7 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { UsedrRole } from './user-role.enum';
+import { UserRole } from './user-role.enum';
 
 @Controller('users')
 export class UsersController {

@@ -11,7 +11,7 @@ export function LoginPage() {
   const [loading, setLoading] = useState(false);
 
   async function handleLogin(
-    event: React.FormEvent,
+    event: React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
 
@@ -115,4 +115,8 @@ export function LoginPage() {
           {loading
             ? 'Entrando...'
             : 'Entrar'}
-        
+        </button>
+      </form>
+    </div>
+  );
+}
