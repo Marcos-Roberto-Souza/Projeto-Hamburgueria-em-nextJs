@@ -9,7 +9,15 @@ import {
     UseInterceptors,
     UploadedFile,
     ParseIntPipe,
+    UserGuards,
 } from '@nestjs/common';
+
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
+
+import { UserRole } from '../users/user-role.enum';
+
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -22,6 +30,8 @@ export class ProductsController {
     constructor(private readonly productsService: ProductsService) { }
 
     // ✅ CREATE
+    @Roles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Post()
     @UseInterceptors(
         FileInterceptor('image', {
@@ -45,6 +55,8 @@ export class ProductsController {
     }
 
     // ✅ UPDATE (CORRETO – NÃO CRIA NOVO ID)
+    @Roles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Patch(':id')
     @UseInterceptors(
         FileInterceptor('image', {
@@ -63,6 +75,8 @@ export class ProductsController {
     }
     
     // ❌ opcional – delete físico (não recomendado)
+    @Roles(UserRole.ADMIN)
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @Delete(':id')
     remove(@Param('id', ParseIntPipe) id: number) {
         return this.productsService.remove(id);

@@ -23,11 +23,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt',) {
 
     console.log('JWT PAYLOAD: ', payload);
 
-    return payload;
-    //{
-     // id: payload.sub,
-     // email: payload.email,
-    //  role: payload.role,
-    //};
+    return{
+      id: payload.sub,
+      email: payload.email,
+      role: payload.role,
+    };
   }
 }
