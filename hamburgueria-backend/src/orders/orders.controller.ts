@@ -19,21 +19,30 @@ import { UserRole } from '../users/user-role.enum';
 export class OrdersController {
     constructor(private readonly ordersService: OrdersService) { }
 
-    @Roles(UserRole.KITCHEN)
+    @Roles(
+        UserRole.KITCHEN,
+        UserRole.ADMIN,
+    )
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Get('kds')
     findForKDS() {
         return this.ordersService.findForKDS();
     }
 
-    @Roles(UserRole.KITCHEN)
+    @Roles(
+        UserRole.KITCHEN,
+        UserRole.ADMIN,
+    )
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Patch(':id/start')
     startPreparation(@Param('id') id: number) {
         return this.ordersService.updateStatus(id, 'EM_PREPARO');
     }
 
-    @Roles(UserRole.KITCHEN)
+    @Roles(
+        UserRole.KITCHEN,
+        UserRole.ADMIN,
+    )
     @UseGuards(JwtAuthGuard, RolesGuard)
     @Patch(':id/finish')
     finishOrder(@Param('id') id: number) {

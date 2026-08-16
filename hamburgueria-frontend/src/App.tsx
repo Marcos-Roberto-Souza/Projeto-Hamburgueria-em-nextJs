@@ -5,6 +5,7 @@ import { Layout } from './components/Layout';
 import { CustomerOrder } from './pages/CustomerOrder';
 import { AdminProducts } from './pages/AdminProducts';
 import { LoginPage } from './pages/LoginPage';
+import { Cashier } from './pages/Cashier';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route element={<Layout/>}>
           <Route path="/customer-order" element={<LoginPage/>} />
+          <Route path="/cashier" element={<Cashier/>}/>
           <Route path="/" element={<KDS />} />
           <Route path="/dashboard" element={<KitchenDashboard />} />
           <Route path="/order" element={<CustomerOrder/>} />
