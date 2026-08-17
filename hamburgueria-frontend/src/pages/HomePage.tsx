@@ -8,6 +8,11 @@ export function HomePage() {
   );
 
   function handleContinue() {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     switch (user.role) {
       case 'ADMIN':
         navigate('/admin/products');
@@ -34,36 +39,112 @@ export function HomePage() {
     <div
       style={{
         minHeight: '100vh',
-        padding: '40px',
-        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: '#f8fafc',
+        padding: '20px',
       }}
     >
-      <h1>🍔 Hamburgueria Digital</h1>
-
-      <p>
-        Faça seu pedido online ou acesse
-        sua área de trabalho.
-      </p>
-
       <div
         style={{
+          width: '100%',
+          maxWidth: '500px',
+          background: '#ffffff',
+          borderRadius: '16px',
+          padding: '40px',
+          boxShadow: '0 10px 25px rgba(0,0,0,.08)',
           display: 'flex',
-          gap: '20px',
-          justifyContent: 'center',
-          marginTop: '30px',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '16px',
         }}
       >
-        <Link to="/order">
-          <button>Fazer Pedido</button>
+        <h1
+          style={{
+            margin: 0,
+            fontSize: '2rem',
+            color: '#111827',
+            textAlign: 'center',
+          }}
+        >
+          🍔 Hamburgueria Digital
+        </h1>
+
+        <p
+          style={{
+            color: '#6b7280',
+            textAlign: 'center',
+            marginBottom: '20px',
+          }}
+        >
+          Faça seu pedido online ou acesse sua área de trabalho.
+        </p>
+
+        <Link
+          to="/order"
+          style={{
+            width: '100%',
+            textDecoration: 'none',
+          }}
+        >
+          <button
+            style={{
+              width: '100%',
+              padding: '14px',
+              background: '#dc2626',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            🍔 Fazer Pedido
+          </button>
         </Link>
 
-        <Link to="/login">
-          <button>Entrar</button>
+        <Link
+          to="/customer-order"
+          style={{
+            width: '100%',
+            textDecoration: 'none',
+          }}
+        >
+          <button
+            style={{
+              width: '100%',
+              padding: '14px',
+              background: '#2563eb',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            🔐 Entrar
+          </button>
         </Link>
 
         {user && (
-          <button onClick={handleContinue}>
-            Continuar
+          <button
+            onClick={handleContinue}
+            style={{
+              width: '100%',
+              padding: '14px',
+              background: '#16a34a',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+            }}
+          >
+            🚀 Continuar como {user.name}
           </button>
         )}
       </div>

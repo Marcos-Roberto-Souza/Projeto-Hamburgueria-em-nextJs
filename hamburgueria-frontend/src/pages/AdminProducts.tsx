@@ -109,19 +109,40 @@ export function AdminProducts() {
     }
 
     return (
-        <div style={{ maxWidth: '700px', margin: '0 auto' }}>
-            <h1>🧑‍💼 Administração</h1>
+        <div style={{
+             maxWidth: '1200px', 
+             margin: '0 auto',
+             padding: '24px',
+             background: '#f8fafc',
+             minHeight: '100vh',
+             }}>
+
+            <h1
+            style={{
+                marginBottom: '32px',
+                color: '#111827',
+                textAlign: 'center',
+                fontSize: '2rem',
+            }}>
+                🧑‍💼 Painel Administrativo
+                </h1>
 
             <h2>Inserir Produto</h2>
 
             <form onSubmit={createProduct} style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '12px',
-                marginBottom: 30,
+                background: '#fff',
+                padding: '24px',
+                borderRadius: '16px',
+                boxShadow: '0 4px 12px rgba(0,0,0,.08)',
             }}>
                 <input
+                    style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid #d1d5db',
+                        fontSize: '16px',
+                    }}
                     type="text"
                     placeholder="Nome do Produto"
                     value={newName}
@@ -129,23 +150,53 @@ export function AdminProducts() {
 
                 <input
                     type="number"
-                    style={{ marginBottom: 30 }}
+                    style={{ 
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid #d1d5db',
+                        fontSize: '16px', 
+                    }}
                     step="0.01"
                     placeholder="Preço"
                     value={newPrice}
                     onChange={e => setNewPrice(e.target.value)} />
 
-                <textarea style={{ width: '50%', height: 100 }}
+                <textarea style={{
+                    width: '100%', 
+                    minHeight: '120px',
+                    padding: '12px',
+                    borderRadius: '8px',
+                    border: '1px solid #d1d5db',
+                
+                }}
+                    
                     placeholder="Descrição"
                     value={newDescription}
                     onChange={e => setNewDescription(e.target.value)} />
 
-                <input style={{ marginBottom: 30 }}
+                <input 
+                    style={{
+                        width: '100%',
+                        padding: '12px',
+                        borderRadius: '8px',
+                        border: '1px solid #d1d5db',
+                        fontSize: '16px',
+                }}
                     type="file"
                     accept="image/*"
                     onChange={e => setNewImage(e.target.files?.[0] || null)} />
 
-                <button style={{ marginBottom: 40 }} type="submit" disabled={saving}>
+                <button style={{
+                    background: '#dc2626',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '8px',
+                    padding: '14px',
+                    fontSize: '16',
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    }} type="submit" disabled={saving}>
                     {saving ? 'Salvando... ' : '+Adicionar Novo Produto'}
                 </button>
 
@@ -160,24 +211,35 @@ export function AdminProducts() {
                 onChange={e => setSearch(e.target.value)}
                 style={{
                     width: '100%',
-                    padding: '8px',
-                    marginBottom: '40px',
+                    padding: '14px',
+                    borderRadius: '10px',
+                    border: '1px solid #d1d5db',
+                    fontSize: '30px',
                 }}
             />
 
             <h2>LISTA DE PRODUTOS</h2>
             {products.length === 0 && <p>Nenhum produto cadastrado.</p>}
 
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '16',
+
+            }}>
             {filteredProducts.map(product => (
                 <div
                     key={product.id}
                     style={{
-                        border: '1px solid #ddd',
-                        padding: '10px',
-                        marginBottom: '10px',
+                        background: '#fff',
+                        borderRadius: '16px',
+                        padding: '16px',
+                        marginBottom: '16px',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
+                        gap: '20px',
+                        boxShadow: '0 2px 8px rgba(0,0,0,.06)',
                     }}
                 >
                     <div style={{ display: 'flex', gap: 10 }}>
@@ -185,7 +247,12 @@ export function AdminProducts() {
                             <img
                                 src={`${API_URL}${product.image_url}`}
                                 alt={product.name}
-                                width={80}
+                                style = {{
+                                    width: '100px',
+                                    height: '100px',
+                                    objectFit: 'cover',
+                                    borderRadius: '10px',
+                                }}
                             />
                         )}
 
@@ -197,7 +264,14 @@ export function AdminProducts() {
                     </div>
 
                     <div>
-                        <button
+                        <button style={{
+                            background: '#2563eb',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '8px',
+                            padding: '10px 16px',
+                            cursor: 'pointer',
+                        }}
                             onClick={() => {
                                 setEditingProduct(product);
                                 setEditName(product.name);
@@ -211,13 +285,22 @@ export function AdminProducts() {
 
                         <button
                             onClick={() => deleteProduct(product.id)}
-                            style={{ marginLeft: 8, color: 'red' }}
+                            style={{ 
+                                background: '#dc2626',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '8px',
+                                padding: '10px 16px',
+                                cursor: 'pointer',
+                                marginLeft: '8px',
+                             }}
                         >
                             ❌ Excluir
                         </button>
                     </div>
                 </div>
             ))}
+            </div>
 
             {/* MODAL DE EDIÇÃO */}
             {editingProduct && (
@@ -231,7 +314,15 @@ export function AdminProducts() {
                         justifyContent: 'center',
                     }}
                 >
-                    <div style={{ background: '#fff', padding: 20, width: 400 }}>
+                    <div style={{ 
+                        background: '#fff', 
+                        padding: '24px', 
+                        width: '90%',
+                        maxWidth: '500px',
+                        borderRadius: '16px',
+                        boxShadow: '0 10px 30px rgba(0,0,0,.2)',
+                        }}
+                        >
                         <h2>Editar Produto</h2>
 
                         <input

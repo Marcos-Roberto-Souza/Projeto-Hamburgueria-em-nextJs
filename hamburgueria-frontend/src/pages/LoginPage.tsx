@@ -52,7 +52,7 @@ export function LoginPage() {
           break;
 
         case 'CUSTOMER':
-          navigate('/customer-order');
+          navigate('/order');
           break;
 
         default:
@@ -68,55 +68,116 @@ export function LoginPage() {
   return (
     <div
       style={{
-        maxWidth: '400px',
-        margin: '50px auto',
+        minHeight: '100vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: '#f8fafc',
+        padding: '20px',
       }}
     >
-      <h1>🔐 Login</h1>
-
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email</label>
-
-          <input
-            type="email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-            required
-          />
-        </div>
-
-        <div
+      <div
+        style={{
+          width: '100%',
+          maxWidth: '450px',
+          background: '#fff',
+          borderRadius: '16px',
+          padding: '40px',
+          boxShadow: '0 10px 25px rgba(0,0,0,.08)',
+        }}
+      >
+        <h1
           style={{
-            marginTop: '12px',
+            textAlign: 'center',
+            marginBottom: '10px',
           }}
         >
-          <label>Senha</label>
+          🔐 Login
+        </h1>
 
-          <input
-            type="password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
+        <p
           style={{
             marginTop: '20px',
+            textAlign: 'center',
+            color: '#6b7280',
+            marginBottom: '30px',
           }}
         >
-          {loading
-            ? 'Entrando...'
-            : 'Entrar'}
-        </button>
-      </form>
+          Entre para acessar sua área de trabalho.
+        </p>
+
+        <form
+          onSubmit={handleLogin}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '16px',
+          }}
+        >
+          <div>
+            <label>Email</label>
+
+            <input
+              type="email"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              required
+              style={{
+                width: '100%',
+                padding: '12px',
+                marginTop: '6px',
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <div>
+            <label>Senha</label>
+
+            <input
+              type="password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
+              required
+              style={{
+                width: '100%',
+                padding: '12px',
+                marginTop: '6px',
+                borderRadius: '8px',
+                border: '1px solid #d1d5db',
+                boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%',
+              padding: '14px',
+              marginTop: '10px',
+              background: '#dc2626',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontSize: '16px',
+              fontWeight: 'bold',
+            }}
+          >
+            {loading
+              ? 'Entrando...'
+              : 'Entrar'}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
