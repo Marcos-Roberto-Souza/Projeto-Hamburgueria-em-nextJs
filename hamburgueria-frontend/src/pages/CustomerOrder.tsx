@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { api } from '../services/api';
+import { UserInfo } from '../components/UserInfo';
 
 type Product = {
     id: number;
@@ -13,6 +14,52 @@ type CartItem = {
     product: Product;
     quantity: number;
 };
+
+export function UserInfo() {
+    const user = JSON.parse(
+        localStorage.getItem('user') || 'null'
+    );
+
+    if (!user) return null;
+
+    return (
+        <div
+            style={{
+                position: 'fixed',
+                top: '20px',
+                right: '20px',
+                background: '#fff',
+                borderRadius: '16px',
+                padding: '14px 18px',
+                boxShadow:
+                    '0 4px 12px rgba(0,0,0,.12)',
+                minWidth: '180px',
+            }}
+        >
+            <div
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                }}
+            >
+                <span>🟢</span>
+
+                <strong>{user.name}</strong>
+            </div>
+
+            <small
+                style={{
+                    display: 'block',
+                    marginTop: '6px',
+                    color: '#6b7280',
+                }}
+            >
+                Perfil: {user.role}
+            </small>
+        </div>
+    );
+}
 
 export function CustomerOrder() {
     const [products, setProducts] = useState<Product[]>([]);
